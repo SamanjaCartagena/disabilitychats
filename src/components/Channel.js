@@ -9,7 +9,7 @@ const Channel = ({ user = null }) => {
   const db = firebase.firestore();
   const messagesRef = db.collection('messages');
   const messages = useFirestoreQuery(
-    messagesRef.orderBy('createdAt', 'desc').limit(100)
+    messagesRef.orderBy('messagedAt', 'desc').limit(100)
   );
 
   const [newMessage, setNewMessage] = useState('');
@@ -37,7 +37,7 @@ const Channel = ({ user = null }) => {
       // Add new message in Firestore
       messagesRef.add({
         text: trimmedMessage,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        messagedAt: firebase.firestore.FieldValue.serverTimestamp(),
         uid,
         displayName,
         photoURL,
@@ -65,7 +65,7 @@ const Channel = ({ user = null }) => {
           <ul>
             {messages
               ?.sort((first, second) =>
-                first?.createdAt?.seconds <= second?.createdAt?.seconds ? -1 : 1
+                first?.messagedAt?.seconds <= second?.messagedAt?.seconds ? -1 : 1
               )
               ?.map(message => (
                 <li key={message.id}>

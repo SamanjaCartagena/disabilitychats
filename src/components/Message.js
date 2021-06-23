@@ -15,7 +15,7 @@ const formatDate = date => {
 };
 
 const Message = ({
-  createdAt = null,
+  messagedAt = null,
   text = '',
   displayName = '',
   photoURL = '',
@@ -38,9 +38,9 @@ const Message = ({
           {displayName ? (
             <p className="mr-2 text-primary-500">{displayName}</p>
           ) : null}
-          {createdAt?.seconds ? (
+          {messagedAt?.seconds ? (
             <span className="text-gray-500 text-xs">
-              {formatDate(new Date(createdAt.seconds * 1000))}
+              {formatDate(new Date(messagedAt.seconds * 1000))}
             </span>
           ) : null}
         </div>
@@ -52,7 +52,7 @@ const Message = ({
 
 Message.propTypes = {
   text: PropTypes.string,
-  createdAt: PropTypes.shape({
+  messagedAt: PropTypes.shape({
     seconds: PropTypes.number,
   }),
   displayName: PropTypes.string,
